@@ -234,6 +234,13 @@
             .form-container { padding: 25px; }
         }
     </style>
+    <!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("N_YiW0qI6ywlOE0D2");
+   })();
+</script>
 </head>
 <body>
 
@@ -480,12 +487,44 @@
         </div>
     </footer>
 
-    <script>
-        document.getElementById('applyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            this.style.display = 'none';
-            document.querySelector('.success-msg').style.display = 'block';
-        });
-    </script>
+   <script>
+    document.getElementById('applyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        const successMsg = document.querySelector('.success-msg');
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправка...';
+        
+        const templateParams = {
+            name: document.getElementById('name').value,
+            age: document.getElementById('age').value || 'не указан',
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value || 'не указан',
+            subject: document.getElementById('subject').value || 'не выбран',
+            goal: document.getElementById('goal').value || 'не указана',
+            comment: document.getElementById('comment').value || 'нет',
+            date: new Date().toLocaleString('ru-RU')
+        };
+        
+        emailjs.send('service_r9sz7wi', 'template_0yfooy8', templateParams)
+            .then(() => {
+                this.style.display = 'none';
+                successMsg.style.display = 'block';
+                this.reset();
+            })
+            .catch((error) => {
+                console.error('EmailJS Error:', error);
+                alert('Не удалось отправить. Попробуйте позже.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            });
+    });
+</script>
+    
 </body>
 </html>
