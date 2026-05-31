@@ -376,6 +376,49 @@
             color: #888;
             line-height: 1.6;
         }
+        /* ===== цены ===== */
+
+.prices-section { padding: 60px 20px; background: #f9fbf9; }
+.prices-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 24px; 
+  max-width: 1200px; 
+  margin: 30px auto 0; 
+}
+.price-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+.price-card:hover { transform: translateY(-4px); }
+.price-subject { font-weight: 600; font-size: 1.2rem; margin-bottom: 4px; }
+.price-teacher { color: #666; font-size: 0.95rem; margin-bottom: 16px; }
+.price-list { list-style: none; padding: 0; margin: 0 0 20px; }
+.price-list li { 
+  display: flex; 
+  justify-content: space-between; 
+  padding: 8px 0; 
+  border-bottom: 1px dashed #eee; 
+}
+.price-list strong { color: #2d7a4f; }
+.price-btn {
+  display: inline-block;
+  background: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  width: 100%;
+  text-align: center;
+  transition: background 0.2s;
+}
+.price-btn:hover { background: #3d8b40; }
+.price-note { text-align: center; color: #777; font-size: 0.9rem; margin-top: 30px; }
+        
 
         /* ===== ФОРМА ЗАЯВКИ ===== */
         #apply {
