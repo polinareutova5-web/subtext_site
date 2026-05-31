@@ -5,1104 +5,480 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subtext — Онлайн-школа</title>
     <style>
-        /* ===== СБРОС И БАЗОВЫЕ СТИЛИ ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        /* === БАЗОВЫЕ СТИЛИ === */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #2d2d2d;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
-            background: #fafafa;
+            color: #1f2937;
+            background-color: #f8fafc;
         }
-
-        a {
-            text-decoration: none;
-            color: inherit;
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 70px 0; }
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #111827;
         }
+        .section-desc {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 40px;
+            color: #4b5563;
+            font-size: 1.05rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #2563eb;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: center;
+        }
+        .btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+        }
+        .btn-outline:hover { background: #2563eb; color: #fff; }
 
-        /* ===== НАВИГАЦИЯ ===== */
-        nav {
-            position: fixed;
+        /* === ШАПКА === */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 0 40px;
-            transition: box-shadow 0.3s;
+            z-index: 100;
         }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 24px; font-weight: 800; color: #2563eb; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-weight: 500; color: #374151; }
+        .nav-links a:hover { color: #2563eb; }
 
-        nav.scrolled {
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        /* === ГЛАВНЫЙ ЭКРАН === */
+        .hero {
+            text-align: center;
+            padding: 90px 0 70px;
+            background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
         }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; line-height: 1.2; color: #111827; }
+        .hero p { max-width: 700px; margin: 0 auto 30px; font-size: 1.15rem; color: #4b5563; }
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
 
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* === ПРЕИМУЩЕСТВА === */
+        .features { background: #fff; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+        .feature-card {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            transition: 0.25s;
+        }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .feature-icon { font-size: 2.2rem; margin-bottom: 15px; }
+        .feature-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: #111827; }
+        .feature-card p { color: #4b5563; font-size: 0.95rem; }
+
+        /* === ПРЕПОДАВАТЕЛИ === */
+        .teachers { background: #f3f4f6; }
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .teacher-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+        .teacher-img { width: 100%; height: 260px; object-fit: cover; }
+        .teacher-info { padding: 20px; flex-grow: 1; }
+        .teacher-info h3 { margin-bottom: 4px; font-size: 1.25rem; color: #111827; }
+        .teacher-subject { color: #2563eb; font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95rem; }
+        .teacher-info p { color: #4b5563; font-size: 0.95rem; }
+
+        /* === ЦЕНЫ (ВЫРОВНЕНО) === */
+        .pricing { background: #fff; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .price-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: 0.25s;
+            height: 100%;
+        }
+        .price-card:hover { border-color: #2563eb; transform: translateY(-3px); box-shadow: 0 12px 24px rgba(37, 99, 235, 0.1); }
+        .price-card h3 { font-size: 1.3rem; margin-bottom: 6px; color: #111827; }
+        .price-teacher { color: #6b7280; margin-bottom: 20px; font-size: 0.95rem; }
+        .price-list { list-style: none; margin-bottom: 25px; flex-grow: 1; }
+        .price-list li {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
-        }
-
-        .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 32px;
-        }
-
-        .nav-links a {
+            padding: 12px 0;
+            border-bottom: 1px dashed #d1d5db;
             font-size: 0.95rem;
-            font-weight: 500;
-            color: #555;
-            transition: color 0.3s;
-            position: relative;
         }
+        .price-list li:last-child { border-bottom: none; }
+        .price-val { font-weight: 700; color: #111827; white-space: nowrap; margin-left: 10px; }
+        .price-note { font-size: 0.85rem; color: #6b7280; margin-top: 15px; font-style: italic; }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #6366f1;
-            transition: width 0.3s;
+        /* === ФОРМА ЗАЯВКИ === */
+        .apply { background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%); }
+        .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
-
-        .nav-links a:hover {
-            color: #6366f1;
-        }
-
-        .nav-links a:hover::after {
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #374151; }
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-        }
-
-        /* ===== HERO СЕКЦИЯ ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 120px 40px 80px;
-            background: linear-gradient(160deg, #f0f0ff 0%, #faf5ff 30%, #fef2f2 60%, #fefce8 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-            top: -100px;
-            right: -100px;
-            border-radius: 50%;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
-            bottom: -50px;
-            left: -50px;
-            border-radius: 50%;
-        }
-
-        .hero-content {
-            max-width: 750px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.1);
-            color: #6366f1;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 28px;
-            letter-spacing: 0.5px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 24px;
-            letter-spacing: -1px;
-            color: #1a1a2e;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #6366f1, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 40px;
-            max-width: 550px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 40px;
-            border-radius: 50px;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
             font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
+            transition: 0.2s;
+            font-family: inherit;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #6366f1;
-            border: 2px solid #6366f1;
-            margin-left: 16px;
-        }
-
-        .btn-outline:hover {
-            background: #6366f1;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* ===== СТАТИСТИКА ===== */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            padding: 60px 40px;
-            background: white;
-            border-top: 1px solid #f0f0f0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .stat-item {
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .success-msg {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            padding: 20px;
+            border-radius: 10px;
             text-align: center;
+            margin-top: 25px;
+            font-weight: 500;
+            border: 1px solid #86efac;
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #6366f1;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #888;
-            margin-top: 4px;
-        }
-
-        /* ===== СЕКЦИИ (общее) ===== */
-        section {
-            padding: 100px 40px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
-            color: #1a1a2e;
-        }
-
-        .section-header p {
-            font-size: 1.1rem;
-            color: #777;
-            max-width: 550px;
-            margin: 0 auto;
-        }
-
-        /* ===== О ШКОЛЕ ===== */
-        #about {
-            background: white;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: #fafafa;
-            border: 1px solid #f0f0f0;
-            border-radius: 20px;
-            padding: 40px 32px;
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-            border-color: transparent;
-        }
-
-        .feature-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .icon-purple { background: rgba(99, 102, 241, 0.1); }
-        .icon-pink { background: rgba(236, 72, 153, 0.1); }
-        .icon-orange { background: rgba(249, 115, 22, 0.1); }
-        .icon-green { background: rgba(34, 197, 94, 0.1); }
-
-        .feature-card h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #1a1a2e;
-        }
-
-        .feature-card p {
-            font-size: 0.95rem;
-            color: #777;
-            line-height: 1.7;
-        }
-
-        /* ===== ПРЕПОДАВАТЕЛИ ===== */
-        #teachers {
-            background: linear-gradient(180deg, #fafafa, #f5f3ff);
-        }
-
-        .teachers-grid {
+        /* === ПОДВАЛ === */
+        footer { background: #111827; color: #9ca3af; padding: 60px 0 25px; }
+        .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 32px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .teacher-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            transition: all 0.3s;
-            border: 1px solid #f0f0f0;
-        }
-
-        .teacher-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
-        }
-
-        .teacher-photo {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            display: block;
-            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-        }
-
-        .teacher-info {
-            padding: 24px;
-            text-align: center;
-        }
-
-        .teacher-info h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #1a1a2e;
-        }
-
-        .teacher-subject {
-            font-size: 0.85rem;
-            color: #6366f1;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .teacher-info p {
-            font-size: 0.88rem;
-            color: #888;
-            line-height: 1.6;
-        }
-        /* ===== цены ===== */
-        /* Вертикальное расположение карточек */
-.prices-grid {
-  display: flex;
-  flex-direction: column; /* карточки одна под другой */
-  gap: 24px;
-  max-width: 700px; /* ограничиваем ширину, чтобы смотрелось аккуратно */
-  margin: 30px auto 0; /* центрируем блок */
-}
-
-/* Карточка цены */
-.price-card {
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  transition: transform 0.2s;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.price-card:hover {
-  transform: translateY(-4px);
-}
-
-/* Заголовки внутри карточки — по центру */
-.price-subject {
-  font-weight: 600;
-  font-size: 1.2rem;
-  margin-bottom: 4px;
-  text-align: center;
-}
-
-.price-teacher {
-  color: #666;
-  font-size: 0.95rem;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Список цен — без переносов, аккуратно */
-.price-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px;
-}
-
-.price-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px dashed #eee;
-  gap: 16px;
-  flex-wrap: nowrap;
-}
-
-.price-list li:last-child {
-  border-bottom: none;
-}
-
-.price-list span {
-  flex: 1;
-  font-size: 0.95rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.price-list strong {
-  flex-shrink: 0;
-  font-size: 1rem;
-  color: #7c3aed; /* фиолетовая цена */
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* Кнопка — фиолетовая, на всю ширину */
-.price-btn {
-  display: inline-block;
-  background: #7c3aed;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  width: 100%;
-  text-align: center;
-  transition: background 0.2s;
-  border: none;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.price-btn:hover {
-  background: #6d28d9;
-}
-
-/* Заголовок секции — по центру */
-.prices-section h2 {
-  text-align: center;
-  margin-bottom: 8px;
-}
-
-.prices-section .section-subtitle {
-  text-align: center;
-  color: #666;
-  margin-bottom: 40px;
-  font-size: 1.1rem;
-}
-
-/* Примечание под ценами */
-.price-note {
-  text-align: center;
-  color: #777;
-  font-size: 0.9rem;
-  margin-top: 30px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Адаптив для мобильных */
-@media (max-width: 480px) {
-  .price-list li {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-  
-  .price-list span,
-  .price-list strong {
-    white-space: normal;
-  }
-  
-  .price-list strong {
-    align-self: flex-end;
-  }
-  
-  .prices-grid {
-    max-width: 100%;
-    padding: 0 16px;
-  }
-}
-       @media (min-width: 1024px) {
-  .prices-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки */
-    gap: 24px;
-    max-width: 1200px; /* стандартная ширина контейнера */
-    width: 100%;
-    margin: 30px auto 0; /* авто-марджины центрируют блок */
-    padding: 0 20px; /* безопасные отступы от краёв экрана */
-    box-sizing: border-box;
-  }
-}
-        
-
-        /* ===== ФОРМА ЗАЯВКИ ===== */
-        #apply {
-            background: white;
-        }
-
-        .form-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fafafa;
-            border: 1px solid #f0f0f0;
-            border-radius: 24px;
-            padding: 48px 40px;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #e8e8e8;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            font-family: inherit;
-            background: white;
-            color: #333;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            outline: none;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .form-submit {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 14px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
-            font-family: inherit;
-        }
-
-        .form-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
-        }
-
-        .form-submit:active {
-            transform: translateY(0);
-        }
-
-        /* Уведомление об успешной отправке */
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: white;
-            animation: popIn 0.5s ease;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0); }
-            70% { transform: scale(1.15); }
-            100% { transform: scale(1); }
-        }
-
-        .success-message h3 {
-            font-size: 1.4rem;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-        }
-
-        .success-message p {
-            color: #888;
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            background: #1a1a2e;
-            color: #aaa;
-            padding: 60px 40px 30px;
-        }
-
-        .footer-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
             gap: 40px;
+            margin-bottom: 40px;
         }
-
-        .footer-brand .logo {
-            margin-bottom: 16px;
-            display: inline-block;
-        }
-
-        .footer-brand p {
-            font-size: 0.9rem;
-            line-height: 1.7;
-            max-width: 300px;
-        }
-
-        .footer-col h4 {
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-col ul li a {
-            font-size: 0.9rem;
-            color: #888;
-            transition: color 0.3s;
-        }
-
-        .footer-col ul li a:hover {
-            color: #a78bfa;
-        }
-
-        .footer-bottom {
-            max-width: 1100px;
-            margin: 40px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        .footer-col h4 { font-size: 1.2rem; margin-bottom: 15px; color: #fff; }
+        .footer-col a { display: block; margin-bottom: 10px; }
+        .footer-col a:hover { color: #fff; }
+        .copyright {
             text-align: center;
-            font-size: 0.85rem;
-            color: #555;
+            padding-top: 25px;
+            border-top: 1px solid #374151;
+            font-size: 0.9rem;
+            color: #6b7280;
         }
 
-        /* ===== АДАПТИВНОСТЬ ===== */
+        /* === АДАПТИВНОСТЬ === */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .stats {
-                flex-direction: column;
-                gap: 24px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-outline {
-                margin-left: 0;
-                margin-top: 12px;
-            }
-
-            section {
-                padding: 60px 20px;
-            }
-
-            .form-wrapper {
-                padding: 32px 24px;
-            }
-        }
-
-        /* ===== АНИМАЦИИ ПРИ СКРОЛЛЕ ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-container { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== НАВИГАЦИЯ ===== -->
-<nav id="navbar">
-    <div class="nav-inner">
-        <div class="logo">Subtext</div>
-        <ul class="nav-links">
-            <li><a href="#about">О школе</a></li>
-            <li><a href="#teachers">Преподаватели</a></li>
-            <li><a href="#apply">Записаться</a></li>
-            <li><a href="#price">Цены</a></li>
-        </ul>
-    </div>
-</nav>
-
-<!-- ===== HERO ===== -->
-<section class="hero">
-    <div class="hero-content">
-        <div class="hero-badge">🎓 Набор открыт — Осень 2026</div>
-        <h1>Учись онлайн<br>с <span>лучшими</span> педагогами</h1>
-        <p>Современная онлайн-школа для детей и взрослых. Индивидуальный подход, живые уроки и реальные результаты.</p>
-        <a href="#apply" class="btn btn-primary">Записаться на урок</a>
-        <a href="#about" class="btn btn-outline">Узнать больше</a>
-    </div>
-</section>
-
-<!-- ===== О ШКОЛЕ ===== -->
-<section id="about">
-    <div class="section-header fade-in">
-        <h2>Почему выбирают нас</h2>
-        <p>Мы создали идеальную среду для обучения, где каждый ученик получает внимание и поддержку.</p>
-    </div>
-    <div class="features-grid">
-        <div class="feature-card fade-in">
-            <div class="feature-icon icon-purple">📹</div>
-            <h3>Живые уроки</h3>
-            <p>Занятия проходят в реальном времени с преподавателем. Никаких записей — только интерактив и обратная связь.</p>
-        </div>
-        <div class="feature-card fade-in">
-            <div class="feature-icon icon-pink">👤</div>
-            <h3>Индивидуально или в мини-группы</h3>
-            <p>Индивидуальные занятия или мини группы до 3 человек. Преподаватель уделяет внимание каждому ученику на каждом уроке.</p>
-        </div>
-        <div class="feature-card fade-in">
-            <div class="feature-icon icon-orange">📊</div>
-            <h3>Платформа</h3>
-            <p>Работаем на собственной платформе</p>
-        </div>
-        <div class="feature-card fade-in">
-            <div class="feature-icon icon-green">🎯</div>
-            <h3>Гарантия результата</h3>
-            <p>Если ученик посещает все занятия и делает домашку — мы гарантируем повышение успеваемости.</p>
-        </div>
-        <div class="feature-card fade-in">
-            <div class="feature-icon icon-green">🎯</div>
-            <h3>Для всех возрастов</h3>
-            <p>Обучение для разных возрастов и целей.</p>
-        </div>
-    </div>
-</section>
-
-<!-- ===== ПРЕПОДАВАТЕЛИ ===== -->
-<section id="teachers">
-    <div class="section-header fade-in">
-        <h2>Наши преподаватели</h2>
-        <p>Педагоги, которые умеют объяснять сложное простым языком</p>
-    </div>
-    <div class="teachers-grid">
-        <div class="teacher-card fade-in">
-            <img class="teacher-photo"
-                 src="https://i.imgur.com/3rk6gSA.jpeg"
-                 alt="Полина Дмитриевна"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22><rect fill=%22%23c7d2fe%22 width=%22400%22 height=%22280%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22 fill=%22%236366f1%22 font-family=%22sans-serif%22>👩‍🏫</text></svg>'">
-            <div class="teacher-info">
-                <h3>Полина Дмитриевна</h3>
-                <div class="teacher-subject">Английский язык</div>
-                <p>Работаю с учениками всех возрастов: помогаю детям учиться с интересом, а взрослым — уверенно достигать поставленных целей.</p>
-            </div>
-        </div>
-        <div class="teacher-card fade-in">
-            <img class="teacher-photo"
-                 src="https://i.imgur.com/cH16EwE.jpeg"
-                 alt="Татьяна Николаевна"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22><rect fill=%22%23c7d2fe%22 width=%22400%22 height=%22280%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22 fill=%22%236366f1%22 font-family=%22sans-serif%22>👨‍🏫</text></svg>'">
-            <div class="teacher-info">
-                <h3>Татьяна Николаевна</h3>
-                <div class="teacher-subject">Физика и математика</div>
-                <p>Стаж преподавательской деятельности 35 лет. Учитель высшей категории по физике. Готовлю учеников к ОГЭ.</p>
-            </div>
-        </div>
-        <div class="teacher-card fade-in">
-            <img class="teacher-photo"
-                 src="https://i.imgur.com/3rQWe6G.jpeg"
-                 alt="Думчева Аделаида"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22><rect fill=%22%23c7d2fe%22 width=%22400%22 height=%22280%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22 fill=%22%236366f1%22 font-family=%22sans-serif%22>👩‍💻</text></svg>'">
-            <div class="teacher-info">
-                <h3>Думчева Аделаида</h3>
-                <div class="teacher-subject">Английский язык</div>
-                <p>Биолог по призванию и по состоянию души. В 2026 году заканчиваю МПГУ по педагогическому образованию с профилями «Биология» и «Английский язык». Имею опыт подготовки школьников к ОГЭ и ЕГЭ, помогаю повышать успеваемость. На занятиях применяю практико-ориентированный подход.</p>
-            </div>
-        </div>
-        <div class="teacher-card fade-in">
-            <img class="teacher-photo"
-                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-                 alt="Наталья"
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22280%22><rect fill=%22%23c7d2fe%22 width=%22400%22 height=%22280%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22 fill=%22%236366f1%22 font-family=%22sans-serif%22>👨‍🔬</text></svg>'">
-            <div class="teacher-info">
-                <h3>Наталья</h3>
-                <div class="teacher-subject">Французский</div>
-                <p>Французский</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== Цены ===== -->    
-<section id="price" class="prices-section">
-  <h2>Стоимость занятий</h2>
-  <p class="section-subtitle">Прозрачные цены. Первый урок — бесплатно!</p>
-  
-  <div class="prices-grid">
-    
-    <!-- Английский язык -->
-    <div class="price-card">
-      <div class="price-subject">🇬🇧 Английский язык</div>
-      <div class="price-teacher">Полина Дмитриевна</div>
-      <ul class="price-list">
-        <li><span>Индивидуально (60 мин)</span> <strong>600 ₽</strong></li>
-        <li><span>Мини-группа до 3 чел. (60 мин)</span> <strong>450 ₽/чел</strong></li>
-        <li><span>Подготовка к ОГЭ (60 мин)</span> <strong>700 ₽</strong></li>
-      </ul>
-      <a href="#apply" class="price-btn">Записаться</a>
-    </div>
-
-    <!-- Физика и математика -->
-    <div class="price-card">
-      <div class="price-subject">⚛️ Физика и математика</div>
-      <div class="price-teacher">Татьяна Николаевна</div>
-      <ul class="price-list">
-        <li><span>Индивидуально (60 мин)</span> <strong>800 ₽</strong></li>
-        <li><span>Мини-группа до 3 чел. (60 мин)</span> <strong>650 ₽/чел</strong></li>
-        <li><span>Подготовка к ОГЭ (60 мин)</span> <strong>900₽</strong></li>
-      </ul>
-      <a href="#apply" class="price-btn">Записаться</a>
-    </div>
-
-    <!-- Французский язык -->
-    <div class="price-card">
-      <div class="price-subject">🇫🇷 Французский язык</div>
-      <div class="price-teacher">Наталья</div>
-      <ul class="price-list">
-        <li><span>Индивидуально (60 мин)</span> <strong>___ ₽</strong></li>
-      </ul>
-      <a href="#apply" class="price-btn">Записаться</a>
-    </div>
-
-    <!-- Биология -->
-    <div class="price-card">
-      <div class="price-subject">🧬 Биология</div>
-      <div class="price-teacher">Аделаида Думчева</div>
-      <ul class="price-list">
-        <li><span>Индивидуально (60 мин)</span> <strong>600 ₽</strong></li>
-        <li><span>Подготовка к ОГЭ (60 мин)</span> <strong>700 ₽</strong></li>
-        <li><span>Подготовка к ЕГЭ (60 мин)</span> <strong>800 ₽</strong></li>
-      </ul>
-      <a href="#apply" class="price-btn">Записаться</a>
-    </div>
-
-  </div>
-  
-  <p class="price-note">* Цены указаны за одно занятие. При оплате абонемента на 8 занятий — скидка 10%.</p>
-</section>
-        
-        <!-- ===== ФОРМА ЗАЯВКИ ===== -->
-<section id="apply">
-    <div class="section-header fade-in">
-        <h2>Записаться на обучение</h2>
-        <p>Заполните форму и мы свяжемся с вами в течение 24 часов</p>
-    </div>
-    <div class="form-wrapper fade-in" id="formWrapper">
-        <form id="applicationForm">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="name">Имя ученика *</label>
-                    <input type="text" id="name" name="name" placeholder="Введите имя" required>
+    <!-- ШАПКА -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Subtext</a>
+                <div class="nav-links">
+                    <a href="#about">О школе</a>
+                    <a href="#teachers">Преподаватели</a>
+                    <a href="#apply">Записаться</a>
+                    <a href="#price">Цены</a>
                 </div>
-                <div class="form-group">
-                    <label for="age">Возраст</label>
-                    <input type="text" id="age" name="age" placeholder="Например: 14 лет / 9 класс">
+            </nav>
+        </div>
+    </header>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">🎓 Набор открыт — Осень 2026</div>
+            <h1>Учись онлайн с лучшими педагогами</h1>
+            <p>Современная онлайн-школа для детей и взрослых. Индивидуальный подход, живые уроки и реальные результаты.</p>
+            <div class="hero-buttons">
+                <a href="#apply" class="btn">Записаться на урок</a>
+                <a href="#about" class="btn btn-outline">Узнать больше</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПРЕИМУЩЕСТВА -->
+    <section id="about" class="features">
+        <div class="container">
+            <h2>Почему выбирают нас</h2>
+            <p class="section-desc">Мы создали идеальную среду для обучения, где каждый ученик получает внимание и поддержку.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📹</div>
+                    <h3>Живые уроки</h3>
+                    <p>Занятия проходят в реальном времени с преподавателем. Никаких записей — только интерактив и обратная связь.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3>Индивидуально или в мини-группы</h3>
+                    <p>Индивидуальные занятия или мини группы до 3 человек. Преподаватель уделяет внимание каждому ученику на каждом уроке.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Платформа</h3>
+                    <p>Работаем на собственной платформе</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Гарантия результата</h3>
+                    <p>Если ученик посещает все занятия и делает домашку — мы гарантируем повышение успеваемости.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Для всех возрастов</h3>
+                    <p>Обучение для разных возрастов и целей.</p>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="phone">Телефон *</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+    </section>
+
+    <!-- ПРЕПОДАВАТЕЛИ -->
+    <section id="teachers" class="teachers">
+        <div class="container">
+            <h2>Наши преподаватели</h2>
+            <p class="section-desc">Педагоги, которые умеют объяснять сложное простым языком</p>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <img src="https://i.imgur.com/3rk6gSA.jpeg" alt="Реутова Полина Дмитриевна" class="teacher-img">
+                    <div class="teacher-info">
+                        <h3>Реутова Полина Дмитриевна</h3>
+                        <span class="teacher-subject">Английский язык</span>
+                        <p>Работаю с учениками всех возрастов: помогаю детям учиться с интересом, а взрослым — уверенно достигать поставленных целей.</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="example@mail.ru">
+                <div class="teacher-card">
+                    <img src="https://i.imgur.com/cH16EwE.jpeg" alt="Селезнева Татьяна Николаевна" class="teacher-img">
+                    <div class="teacher-info">
+                        <h3>Селезнева Татьяна Николаевна</h3>
+                        <span class="teacher-subject">Физика и математика</span>
+                        <p>Стаж преподавательской деятельности 35 лет. Учитель высшей категории по физике. Готовлю учеников к ОГЭ.</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://i.imgur.com/3rQWe6G.jpeg" alt="Думчева Аделаида" class="teacher-img">
+                    <div class="teacher-info">
+                        <h3>Думчева Аделаида</h3>
+                        <span class="teacher-subject">Английский язык</span>
+                        <p>Биолог по призванию и по состоянию души. В 2026 году заканчиваю МПГУ по педагогическому образованию с профилями «Биология» и «Английский язык». Имею опыт подготовки школьников к ОГЭ и ЕГЭ, помогаю повышать успеваемость. На занятиях применяю практико-ориентированный подход.</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Наталья" class="teacher-img">
+                    <div class="teacher-info">
+                        <h3>Наталья</h3>
+                        <span class="teacher-subject">Французский</span>
+                        <p>Французский</p>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="subject">Предмет</label>
-                <select id="subject" name="subject">
-                    <option value="">Выберите предмет</option>
-                    <option value="math">Математика</option>
-                    <option value="physics">Физика</option>
-                    <option value="english">Английский язык</option>
-                    <option value="russian">Французский язык</option>
-                    <option value="chemistry">Биология</option>
-                    <option value="other">Другое</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="goal">Цель обучения</label>
-                <select id="goal" name="goal">
-                    <option value="">Выберите цель</option>
-                    <option value="oge">Подготовка к ОГЭ</option>
-                    <option value="ege">Подготовка к ЕГЭ</option>
-                    <option value="improve">Повышение успеваемости</option>
-                    <option value="olympiad">Олимпиады</option>
-                    <option value="interest">Для себя / интерес</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="comment">Комментарий</label>
-                <textarea id="comment" name="comment" placeholder="Расскажите о ваших пожеланиях или вопросах..."></textarea>
-            </div>
-            <button type="submit" class="form-submit">Отправить заявку ✉️</button>
-        </form>
-    </div>
-
-    <!-- Сообщение об успехе -->
-    <div class="success-message" id="successMessage">
-        <div class="success-icon">✓</div>
-        <h3>Заявка отправлена!</h3>
-        <p>Мы свяжемся с вами в ближайшее время. Спасибо!</p>
-    </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer>
-    <div class="footer-inner">
-        <div class="footer-brand">
-            <div class="logo">Subtext</div>
-            <p>Онлайн-школа нового поколения. Помогаем ученикам достигать целей с 2025 года.</p>
         </div>
-        <div class="footer-col">
-            <h4>Навигация</h4>
-            <ul>
-                <li><a href="#about">О школе</a></li>
-                <li><a href="#teachers">Преподаватели</a></li>
-                <li><a href="#apply">Записаться</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Контакты</h4>
-            <ul>
-                <li><a href="mailto:subtextschool@gmail.com">subtextschool@gmail.com</a></li>
-                <a href="https://vk.ru/club235482007" target="_blank" class="footer-link">ВКонтакте</a>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        © 2026 Subtext — Онлайн-школа. Все права защищены.
-    </div>
-</footer>
+    </section>
 
-<script>
-    // ===== Навигация: тень при скролле =====
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.scrollY > 10);
-    });
+    <!-- ЦЕНЫ -->
+    <section id="price" class="pricing">
+        <div class="container">
+            <h2>Стоимость занятий</h2>
+            <p class="section-desc">Прозрачные цены. Первый урок — бесплатно!</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>🇬🇧 Английский язык</h3>
+                    <div class="price-teacher">Реутова Полина Дмитриевна</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">600 ₽</span></li>
+                        <li><span>Мини-группа до 3 чел. (60 мин)</span> <span class="price-val">450 ₽/чел</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">700 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+                <div class="price-card">
+                    <h3>⚛️ Физика и математика</h3>
+                    <div class="price-teacher">Селезнева Татьяна Николаевна</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">800 ₽</span></li>
+                        <li><span>Мини-группа до 3 чел. (60 мин)</span> <span class="price-val">650 ₽/чел</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">900 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+                <div class="price-card">
+                    <h3>🇫🇷 Французский язык</h3>
+                    <div class="price-teacher">Наталья</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">___ ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+                <div class="price-card">
+                    <h3>🧬 Биология</h3>
+                    <div class="price-teacher">Думчева Аделаида</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">600 ₽</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">700 ₽</span></li>
+                        <li><span>Подготовка к ЕГЭ (60 мин)</span> <span class="price-val">800 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+            </div>
+            <p class="price-note" style="text-align:center;">* Цены указаны за одно занятие. При оплате абонемента на 8 занятий — скидка 10%.</p>
+        </div>
+    </section>
 
-    // ===== Анимация появления элементов =====
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+    <!-- ФОРМА ЗАЯВКИ -->
+    <section id="apply" class="apply">
+        <div class="container">
+            <h2>Записаться на обучение</h2>
+            <p class="section-desc">Заполните форму и мы свяжемся с вами в течение 24 часов</p>
+            <div class="form-container">
+                <form id="applyForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Имя ученика *</label>
+                            <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Возраст</label>
+                            <input type="number" id="age" name="age" placeholder="14">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 000-00-00">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="example@mail.ru">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="subject">Предмет</label>
+                            <select id="subject" name="subject">
+                                <option value="">Выберите предмет</option>
+                                <option value="math">Математика</option>
+                                <option value="physics">Физика</option>
+                                <option value="english">Английский язык</option>
+                                <option value="french">Французский язык</option>
+                                <option value="biology">Биология</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal">Цель обучения</label>
+                            <select id="goal" name="goal">
+                                <option value="">Выберите цель</option>
+                                <option value="oge">Подготовка к ОГЭ</option>
+                                <option value="ege">Подготовка к ЕГЭ</option>
+                                <option value="improve">Повышение успеваемости</option>
+                                <option value="olympiad">Олимпиады</option>
+                                <option value="hobby">Для себя / интерес</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Комментарий</label>
+                        <textarea id="comment" name="comment" rows="4" placeholder="Напишите дополнительные пожелания..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%;">Отправить заявку</button>
+                </form>
+                <div class="success-msg">✉️ ✓ Заявка отправлена!<br>Мы свяжемся с вами в ближайшее время. Спасибо!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Subtext</h4>
+                    <p>Онлайн-школа нового поколения. Помогаем ученикам достигать целей с 2025 года.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <a href="#about">О школе</a>
+                    <a href="#teachers">Преподаватели</a>
+                    <a href="#apply">Записаться</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <a href="mailto:subtextschool@gmail.com">subtextschool@gmail.com</a>
+                    <a href="https://vk.ru/club235482007" target="_blank">ВКонтакте</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 Subtext — Онлайн-школа. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('applyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.querySelector('.success-msg').style.display = 'block';
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // ===== Отправка формы =====
-    const form = document.getElementById('applicationForm');
-    const formWrapper = document.getElementById('formWrapper');
-    const successMessage = document.getElementById('successMessage');
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Собираем данные
-        const formData = new FormData(form);
-        const data = {};
-        formData.forEach((value, key) => data[key] = value);
-
-        console.log('Заявка:', data);
-
-        // Показываем сообщение об успехе
-        formWrapper.style.display = 'none';
-        successMessage.classList.add('show');
-
-        // Через 5 секунд можно вернуть форму (опционально)
-        setTimeout(() => {
-            form.reset();
-            formWrapper.style.display = 'block';
-            successMessage.classList.remove('show');
-        }, 8000);
-    });
-
-    // ===== Простая маска для телефона =====
-    const phoneInput = document.getElementById('phone');
-    phoneInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        if (value.length > 0) {
-            if (value[0] === '7' || value[0] === '8') {
-                value = value.substring(1);
-            }
-            let formatted = '+7';
-            if (value.length > 0) formatted += ' (' + value.substring(0, 3);
-            if (value.length >= 3) formatted += ') ' + value.substring(3, 6);
-            if (value.length >= 6) formatted += '-' + value.substring(6, 8);
-            if (value.length >= 8) formatted += '-' + value.substring(8, 10);
-            e.target.value = formatted;
-        }
-    });
-</script>
-
+    </script>
 </body>
 </html>
