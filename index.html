@@ -520,10 +520,16 @@
     padding: 0 16px;
   }
 }
-        @media (min-width: 1024px) {
+       @media (min-width: 1024px) {
   .prices-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки на больших экранах */
+    grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+    gap: 24px;
+    max-width: 1200px; /* стандартная ширина контейнера */
+    width: 100%;
+    margin: 30px auto 0; /* авто-марджины центрируют блок */
+    padding: 0 20px; /* безопасные отступы от краёв экрана */
+    box-sizing: border-box;
   }
 }
         
