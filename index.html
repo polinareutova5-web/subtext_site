@@ -121,14 +121,14 @@
             display: flex;
             flex-direction: column;
         }
-                .teacher-img {
+                        .teacher-img {
             width: 100%;
-            height: 350px; /* Увеличил высоту, чтобы фото влезало лучше */
-            object-fit: contain; /* Теперь фото помещается целиком и не обрезается */
-            background-color: #fff; /* Фон под фото, чтобы не было пустот */
-            padding: 15px; /* Добавил отступ, чтобы фото не прилипало к краям */
-            box-sizing: border-box;
+            height: 330px;
+            object-fit: cover;          /* Фото заполняет блок, края аккуратно обрезаются */
+            object-position: center 20%; /* Фокус смещён на 20% от верха — лица остаются в кадре */
+            background-color: #f8fafc;  /* Нейтральный фон, если фото вдруг загрузится с задержкой */
         }
+    
         .teacher-info { padding: 20px; flex-grow: 1; }
         .teacher-info h3 { margin-bottom: 4px; font-size: 1.25rem; color: #111827; }
         .teacher-subject { color: #2563eb; font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95rem; }
