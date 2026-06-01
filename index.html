@@ -233,6 +233,99 @@
             .form-row { grid-template-columns: 1fr; }
             .form-container { padding: 25px; }
         }
+        /* Стили формы и кнопки */
+.my-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+.my-form input[type="text"], .my-form input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Стили блока согласия */
+.consent-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.4;
+}
+.consent-checkbox {
+  margin-top: 3px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.consent-link {
+  color: #0066cc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.consent-link:hover {
+  text-decoration: none;
+}
+
+/* Стили кнопки (активная и неактивная) */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.submit-btn:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+.submit-btn:disabled {
+  background-color: #b0c4de; /* Серый цвет для заблокированной кнопки */
+  cursor: not-allowed;
+}
+
+/* Стили всплывающего окна (Модальное окно) */
+.modal-overlay {
+  display: none; /* Скрыто по умолчанию */
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6); /* Затемнение фона */
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto; /* Скролл внутри окна, если текст длинный */
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.close-modal {
+  position: absolute;
+  top: 10px; right: 20px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+.close-modal:hover { color: #333; }
+.modal-text { font-size: 14px; line-height: 1.6; color: #333; }
     </style>
     <!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -453,7 +546,17 @@
                         <label for="comment">Комментарий</label>
                         <textarea id="comment" name="comment" rows="4" placeholder="Напишите дополнительные пожелания..."></textarea>
                     </div>
-                    <button type="submit" class="btn" style="width:100%;">Отправить заявку</button>
+                    <!-- Блок согласия на обработку персональных данных -->
+<div class="consent-block">
+  <input type="checkbox" id="consentCheck" class="consent-checkbox">
+  <label for="consentCheck" class="consent-label">
+    Я даю 
+    <a href="#" id="openConsentBtn" class="consent-link" onclick="event.stopPropagation()">согласие</a> 
+    на обработку моих персональных данных в соответствии с политикой конфиденциальности.
+  </label>
+</div>
+  
+<button type="submit" id="submitBtn" class="submit-btn" disabled>Отправить заявку</button>
                 </form>
                 <div class="success-msg">✉️ ✓ Заявка отправлена!<br>Мы свяжемся с вами в ближайшее время. Спасибо!</div>
             </div>
@@ -523,6 +626,68 @@
                 submitBtn.textContent = originalText;
             });
     });
+</script>
+    <!-- Всплывающее окно с полным текстом согласия -->
+<div id="consentModal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h2>Согласие на обработку персональных данных</h2>
+    <div class="modal-text">
+      <p><strong>1. Общие положения</strong><br>
+      Настоящее согласие на обработку персональных данных дано Пользователем Оператору — онлайн-школе «Subtext»...</p>
+      
+      <p><strong>2. Цели обработки</strong><br>
+      Обработка данных осуществляется в целях связи с учеником/родителем, записи на занятия, оказания образовательных услуг...</p>
+      
+      <p><strong>3. Перечень данных</strong><br>
+      ФИО, возраст, номер телефона, адрес электронной почты, сведения об успеваемости.</p>
+      
+      <p><strong>4. Срок действия и порядок отзыва</strong><br>
+      Согласие действует до момента его отзыва. Пользователь может отозвать согласие, направив письмо на subtextschool@gmail.com.</p>
+      
+      <!-- ✅ ЗАМЕНИТЕ ЭТОТ ТЕКСТ НА СВОЙ ПОЛНЫЙ ЮРИДИЧЕСКИЙ ТЕКСТ -->
+    </div>
+  </div>
+</div>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('consentCheck');
+    const submitBtn = document.getElementById('submitBtn');
+    const openBtn = document.getElementById('openConsentBtn');
+    const modal = document.getElementById('consentModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const form = document.querySelector('form'); // или укажите точный id: document.getElementById('ВАШ_ID_ФОРМЫ')
+
+    // Активация кнопки при установке галочки
+    checkbox.addEventListener('change', function() {
+      submitBtn.disabled = !this.checked;
+    });
+
+    // Открытие модального окна
+    openBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      modal.style.display = 'flex';
+    });
+
+    // Закрытие по крестику
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    // Закрытие по клику на затемнённый фон
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape" && modal.style.display === "flex") {
+        modal.style.display = "none";
+      }
+    });
+  });
 </script>
     
 </body>
