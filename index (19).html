@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta property="og:image" content="https://i.imgur.com/raOg4x8.jpeg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subtext — Онлайн-платформа</title>
+    <style>
+        /* === БАЗОВЫЕ СТИЛИ === */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background-color: #f8fafc;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 70px 0; }
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #111827;
+        }
+        .section-desc {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 40px;
+            color: #4b5563;
+            font-size: 1.05rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #2563eb;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.25s;
+            text-align: center;
+        }
+        .btn:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+        }
+        .btn-outline:hover { background: #2563eb; color: #fff; }
+
+        /* === ШАПКА === */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 24px; font-weight: 800; color: #2563eb; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { font-weight: 500; color: #374151; }
+        .nav-links a:hover { color: #2563eb; }
+
+        /* === ГЛАВНЫЙ ЭКРАН === */
+        .hero {
+            text-align: center;
+            padding: 90px 0 70px;
+            background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
+        }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; line-height: 1.2; color: #111827; }
+        .hero p { max-width: 700px; margin: 0 auto 30px; font-size: 1.15rem; color: #4b5563; }
+        .badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        /* === ПРЕИМУЩЕСТВА === */
+        .features { background: #fff; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+        }
+        .feature-card {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            transition: 0.25s;
+        }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .feature-icon { font-size: 2.2rem; margin-bottom: 15px; }
+        .feature-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: #111827; }
+        .feature-card p { color: #4b5563; font-size: 0.95rem; }
+
+        /* === ПРЕПОДАВАТЕЛИ === */
+        .teachers { background: #f3f4f6; }
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .teacher-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+        }
+                        .teacher-img {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;          /* Фото заполняет блок, края аккуратно обрезаются */
+            object-position: center 20%; /* Фокус смещён на 20% от верха — лица остаются в кадре */
+            background-color: #f8fafc;  /* Нейтральный фон, если фото вдруг загрузится с задержкой */
+        }
+    
+        .teacher-info { padding: 20px; flex-grow: 1; }
+        .teacher-info h3 { margin-bottom: 4px; font-size: 1.25rem; color: #111827; }
+        .teacher-subject { color: #2563eb; font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95rem; }
+        .teacher-info p { color: #4b5563; font-size: 0.95rem; }
+
+        /* === ЦЕНЫ (ВЫРОВНЕНО) === */
+        .pricing { background: #fff; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .price-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            transition: 0.25s;
+            height: 100%;
+        }
+        .price-card:hover { border-color: #2563eb; transform: translateY(-3px); box-shadow: 0 12px 24px rgba(37, 99, 235, 0.1); }
+        .price-card h3 { font-size: 1.3rem; margin-bottom: 6px; color: #111827; }
+        .price-teacher { color: #6b7280; margin-bottom: 20px; font-size: 0.95rem; }
+        .price-list { list-style: none; margin-bottom: 25px; flex-grow: 1; }
+        .price-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #d1d5db;
+            font-size: 0.95rem;
+        }
+        .price-list li:last-child { border-bottom: none; }
+        .price-val { font-weight: 700; color: #111827; white-space: nowrap; margin-left: 10px; }
+        .price-note { font-size: 0.85rem; color: #6b7280; margin-top: 15px; font-style: italic; }
+
+        /* === ФОРМА ЗАЯВКИ === */
+        .apply { background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%); }
+        .form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: #374151; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .success-msg {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 25px;
+            font-weight: 500;
+            border: 1px solid #86efac;
+        }
+
+        /* === ПОДВАЛ === */
+        footer { background: #111827; color: #9ca3af; padding: 60px 0 25px; }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 { font-size: 1.2rem; margin-bottom: 15px; color: #fff; }
+        .footer-col a { display: block; margin-bottom: 10px; }
+        .footer-col a:hover { color: #fff; }
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid #374151;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-container { padding: 25px; }
+        }
+        /* Стили формы и кнопки */
+.my-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+.my-form input[type="text"], .my-form input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Стили блока согласия */
+.consent-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.4;
+}
+.consent-checkbox {
+  margin-top: 3px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.consent-link {
+  color: #0066cc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.consent-link:hover {
+  text-decoration: none;
+}
+
+/* Стили кнопки (активная и неактивная) */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.submit-btn:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+.submit-btn:disabled {
+  background-color: #b0c4de; /* Серый цвет для заблокированной кнопки */
+  cursor: not-allowed;
+}
+
+/* Стили всплывающего окна (Модальное окно) */
+.modal-overlay {
+  display: none; /* Скрыто по умолчанию */
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6); /* Затемнение фона */
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto; /* Скролл внутри окна, если текст длинный */
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.close-modal {
+  position: absolute;
+  top: 10px; right: 20px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+.close-modal:hover { color: #333; }
+.modal-text { font-size: 14px; line-height: 1.6; color: #333; }
+    </style>
+    <!-- EmailJS SDK -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("N_YiW0qI6ywlOE0D2");
+   })();
+</script>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Subtext</a>
+                <div class="nav-links">
+                    <a href="#about">О платформе</a>
+                    <a href="#teachers">Преподаватели</a>
+                    <a href="#apply">Записаться</a>
+                    <a href="#price">Цены</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">🎓 Набор открыт — Осень 2026</div>
+            <h1>Учись онлайн с лучшими педагогами</h1>
+            <p>Современная образовательная платформа для детей и взрослых. Индивидуальный подход, живые уроки и реальные результаты.</p>
+            <div class="hero-buttons">
+                <a href="#apply" class="btn">Записаться на урок</a>
+                <a href="#about" class="btn btn-outline">Узнать больше</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПРЕИМУЩЕСТВА -->
+    <section id="about" class="features">
+        <div class="container">
+            <h2>Почему выбирают нас</h2>
+            <p class="section-desc">Мы создали идеальную среду для обучения, где каждый ученик получает внимание и поддержку.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📹</div>
+                    <h3>Живые уроки</h3>
+                    <p>Занятия проходят в реальном времени с преподавателем. Никаких записей — только интерактив и обратная связь.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3>Индивидуально или в мини-группы</h3>
+                    <p>Индивидуальные занятия или мини группы до 3 человек. Преподаватель уделяет внимание каждому ученику на каждом уроке.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Платформа</h3>
+                    <p>Работаем на собственной платформе</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Гарантия результата</h3>
+                    <p>Если ученик посещает все занятия и делает домашку — наши преподаватели гарантируют повышение успеваемости.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Для всех возрастов</h3>
+                    <p>Обучение для разных возрастов и целей.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПРЕПОДАВАТЕЛИ -->
+    <section id="teachers" class="teachers">
+        <div class="container">
+            <h2>Наши преподаватели</h2>
+            <p class="section-desc">Педагоги, которые умеют объяснять сложное простым языком</p>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <img src="https://i.imgur.com/3rk6gSA.jpeg" alt="Реутова Полина Дмитриевна" class="teacher-img">
+                    <div class="teacher-info">
+                        <h3>Реутова Полина Дмитриевна</h3>
+                        <span class="teacher-subject">Английский язык</span>
+                        <p>Работаю с учениками всех возрастов: помогаю детям учиться с интересом, а взрослым — уверенно достигать поставленных целей.</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://i.imgur.com/cH16EwE.jpeg" alt="Селезнева Татьяна Николаевна" class="teacher-img">
+                    <div class="teacher-info">
+                        <h3>Селезнева Татьяна Николаевна</h3>
+                        <span class="teacher-subject">Физика</span>
+                        <p>Стаж преподавательской деятельности 35 лет. Учитель высшей категории по физике. Готовлю учеников к ОГЭ.</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://i.imgur.com/3rQWe6G.jpeg" alt="Думчева Аделаида" class="teacher-img">
+                    <div class="teacher-info">
+                        <h3>Думчева Аделаида Андреевна</h3>
+                        <span class="teacher-subject">Биология</span>
+                        <p>Биолог по призванию и по состоянию души. Закончила МПГУ по педагогическому образованию с профилями «Биология» и «Английский язык». Имею опыт подготовки школьников к ОГЭ и ЕГЭ, помогаю повышать успеваемость. На занятиях применяю практико-ориентированный подход.</p>
+                    </div>
+                </div>
+                <div class="teacher-card">
+                    <img src="https://i.imgur.com/AEAZQeU.jpeg" alt="Кимель Наталья" class="teacher-img">                   
+                    <div class="teacher-info">
+                        <h3>Кимель Наталья Борисовна</h3>
+                        <span class="teacher-subject">Французский и испанский</span>
+                        <p>Обучаю французскому и испанскому языкам через практику и погружение в культуру страны! Провожу занятия с учениками любого возраста. Помогаю детям школьного возраста повысить успеваемость и легче справляться с домашней работой. Готовлю к ОГЭ.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЦЕНЫ -->
+    <section id="price" class="pricing">
+        <div class="container">
+            <h2>Стоимость занятий</h2>
+            <p class="section-desc">Прозрачные цены. Первый урок — бесплатно!</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>🇬🇧 Английский язык</h3>
+                    <div class="price-teacher">Реутова Полина Дмитриевна</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">600 ₽</span></li>
+                        <li><span>Мини-группа (60 мин)</span> <span class="price-val">450 ₽/чел</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">700 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+                <div class="price-card">
+                    <h3>⚛️ Физика</h3>
+                    <div class="price-teacher">Селезнева Татьяна Николаевна</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">800 ₽</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">900 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+                <div class="price-card">
+                    <h3>🇫🇷 Французский язык</h3>
+                    <div class="price-teacher">Кимель Наталья Борисовна</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">600 ₽</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">700 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+                 <div class="price-card">
+                    <h3>🇪🇸 Испанский язык</h3>
+                    <div class="price-teacher">Кимель Наталья Борисовна</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">600 ₽</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">700 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+                <div class="price-card">
+                    <h3>🧬 Биология</h3>
+                    <div class="price-teacher">Думчева Аделаида Андреевна</div>
+                    <ul class="price-list">
+                        <li><span>Индивидуально (60 мин)</span> <span class="price-val">600 ₽</span></li>
+                        <li><span>Подготовка к ОГЭ (60 мин)</span> <span class="price-val">700 ₽</span></li>
+                        <li><span>Подготовка к ЕГЭ (60 мин)</span> <span class="price-val">800 ₽</span></li>
+                    </ul>
+                    <a href="#apply" class="btn">Записаться</a>
+                </div>
+            </div>
+            <p class="price-note" style="text-align:center;">* Цены указаны за одно занятие. При оплате абонемента на 8 занятий — скидка 10%.</p>
+        </div>
+    </section>
+
+    <!-- ФОРМА ЗАЯВКИ -->
+    <section id="apply" class="apply">
+        <div class="container">
+            <h2>Записаться на обучение</h2>
+            <p class="section-desc">Заполните форму и мы свяжемся с вами в течение 24 часов</p>
+            <div class="form-container">
+                <form id="applyForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Имя ученика *</label>
+                            <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Возраст</label>
+                            <input type="number" id="age" name="age" placeholder="14">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Телефон *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 000-00-00">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="example@mail.ru">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="subject">Предмет</label>
+                            <select id="subject" name="subject">
+                                <option value="">Выберите предмет</option>
+                                <option value="physics">Физика</option>
+                                <option value="english">Английский язык</option>
+                                <option value="french">Французский язык</option>
+                                <option value="biology">Биология</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal">Цель обучения</label>
+                            <select id="goal" name="goal">
+                                <option value="">Выберите цель</option>
+                                <option value="oge">Подготовка к ОГЭ</option>
+                                <option value="ege">Подготовка к ЕГЭ</option>
+                                <option value="improve">Повышение успеваемости</option>
+                                <option value="hobby">Для себя / интерес</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Комментарий</label>
+                        <textarea id="comment" name="comment" rows="4" placeholder="Напишите дополнительные пожелания..."></textarea>
+                    </div>
+                    <!-- Блок согласия на обработку персональных данных -->
+<div class="consent-block">
+  <input type="checkbox" id="consentCheck" class="consent-checkbox">
+  <label for="consentCheck" class="consent-label">
+    Я даю 
+    <a href="#" id="openConsentBtn" class="consent-link" onclick="event.stopPropagation()">согласие</a> 
+    на обработку моих персональных данных в соответствии с политикой конфиденциальности.
+  </label>
+</div>
+  
+<button type="submit" id="submitBtn" class="submit-btn" disabled>Отправить заявку</button>
+                </form>
+                <div class="success-msg">✉️ ✓ Заявка отправлена!<br>Мы свяжемся с вами в ближайшее время. Спасибо!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Subtext</h4>
+                    <p>Онлайн-платформа нового поколения. Помогаем ученикам достигать целей с 2025 года.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <a href="#about">О школе</a>
+                    <a href="#teachers">Преподаватели</a>
+                    <a href="#apply">Записаться</a>
+                </div>
+    
+    <!-- ➕ НОВЫЙ БЛОК -->
+    <div class="footer-col">
+      <h4>Документы</h4>
+      <a href="oferta.html">Публичная оферта</a>
+      <a href="privacy.html">Политика конфиденциальности</a>
+    </div>
+                
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <a href="mailto:subtextschool@gmail.com">subtextschool@gmail.com</a>
+                    <a href="https://vk.ru/club235482007" target="_blank">ВКонтакте</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 Subtext —  Образовательная платформа. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+   <script>
+    document.getElementById('applyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        const successMsg = document.querySelector('.success-msg');
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправка...';
+        
+        const templateParams = {
+            name: document.getElementById('name').value,
+            age: document.getElementById('age').value || 'не указан',
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value || 'не указан',
+            subject: document.getElementById('subject').value || 'не выбран',
+            goal: document.getElementById('goal').value || 'не указана',
+            comment: document.getElementById('comment').value || 'нет',
+            date: new Date().toLocaleString('ru-RU')
+        };
+        
+        emailjs.send('service_r9sz7wi', 'template_0yfooy8', templateParams)
+            .then(() => {
+                this.style.display = 'none';
+                successMsg.style.display = 'block';
+                this.reset();
+            })
+            .catch((error) => {
+                console.error('EmailJS Error:', error);
+                alert('Не удалось отправить. Попробуйте позже.');
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            });
+    });
+</script>
+    <!-- Всплывающее окно с полным текстом согласия -->
+<div id="consentModal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h2>Согласие на обработку персональных данных</h2>
+    <div class="modal-text">
+  <p><strong>СОГЛАСИЕ НА ОБРАБОТКУ ПЕРСОНАЛЬНЫХ ДАННЫХ</strong></p>
+  
+  <p><strong>1. Общие положения</strong><br>
+  Настоящее согласие на обработку персональных данных (далее — Согласие) составлено в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных, предпринимаемые Оператором.</p>
+  
+  <p>Оператором персональных данных является онлайн-школа «Subtext» (далее — Оператор, Школа).<br>
+  Контактный адрес электронной почты: <a href="mailto:subtextschool@gmail.com">subtextschool@gmail.com</a></p>
+  
+  <p><strong>2. Понятия и определения</strong><br>
+  Пользователь — любое физическое лицо, заполнившее форму на сайте онлайн-школы «Subtext».<br>
+  Персональные данные — любая информация, относящаяся к прямо или косвенно определенному или определяемому физическому лицу (субъекту персональных данных).<br>
+  Обработка персональных данных — любое действие (операция) или совокупность действий (операций), совершаемых с использованием средств автоматизации или без использования таких средств с персональными данными, включая сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (распространение, предоставление, доступ), обезличивание, блокирование, удаление, уничтожение персональных данных.</p>
+  
+  <p><strong>3. Перечень обрабатываемых персональных данных</strong><br>
+  Оператор может обрабатывать следующие персональные данные Пользователя:<br>
+  • Фамилия, имя, отчество;<br>
+  • Возраст (дата рождения);<br>
+  • Номер телефона;<br>
+  • Адрес электронной почты;<br>
+  • Сведения об успеваемости и образовательных целях;<br>
+  • Иные данные, добровольно предоставленные Пользователем через формы на сайте.</p>
+  
+  <p><strong>4. Цели обработки персональных данных</strong><br>
+  Персональные данные обрабатываются Оператором в следующих целях:<br>
+  • Связь с Пользователем для ответа на запросы и консультации;<br>
+  • Запись на учебные занятия и курсы;<br>
+  • Оказание образовательных услуг;<br>
+  • Информирование об услугах школы, акциях и специальных предложениях;<br>
+  • Улучшение качества обслуживания и образовательного процесса;<br>
+  • Выполнение требований законодательства Российской Федерации.</p>
+  
+  <p><strong>5. Правовые основания обработки персональных данных</strong><br>
+  Обработка персональных данных осуществляется на основании:<br>
+  • Конституции Российской Федерации;<br>
+  • Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных»;<br>
+  • Федерального закона от 29.12.2012 № 273-ФЗ «Об образовании в Российской Федерации»;<br>
+  • Согласия субъекта персональных данных на обработку его персональных данных.<br>
+  Обработка персональных данных осуществляется Оператором с использованием средств автоматизации.</p>
+  
+  <p><strong>6. Порядок и условия обработки персональных данных</strong><br>
+  Обработка персональных данных осуществляется на законной и справедливой основе, означает только те действия, которые соответствуют законным целям обработки.<br>
+  Обработка персональных данных ограничивается достижением конкретных, заранее определенных и законных целей. Не допускается обработка персональных данных, несовместимая с целями сбора персональных данных.<br>
+  Обработке подлежат только персональные данные, которые отвечают целям их обработки.<br>
+  Содержание и объем обрабатываемых персональных данных должны соответствовать заявленным целям обработки. Обрабатываемые персональные данные не являются избыточными по отношению к заявленным целям их обработки.<br>
+  При обработке персональных данных обеспечивается точность персональных данных, их достаточность, а в необходимых случаях и актуальность по отношению к целям обработки персональных данных. Оператор принимает необходимые меры либо обеспечивает их принятие по удалению или уточнению неполных или неточных данных.</p>
+  
+  <p><strong>7. Сроки обработки персональных данных</strong><br>
+  Персональные данные обрабатываются в течение срока, необходимого для достижения целей обработки, а также в течение сроков, установленных законодательством Российской Федерации.<br>
+  По достижении целей обработки или в случае утраты необходимости в их достижении персональные данные подлежат уничтожению, если иное не предусмотрено законодательством.</p>
+  
+  <p><strong>8. Права субъекта персональных данных</strong><br>
+  Пользователь имеет право:<br>
+  • Получать информацию о фактах и способах обработки своих персональных данных;<br>
+  • Требовать уточнения, блокирования или уничтожения своих персональных данных в случае, если они являются неполными, устаревшими, неточными, незаконно полученными или не являются необходимыми для заявленной цели обработки;<br>
+  • Отозвать свое согласие на обработку персональных данных в любое время;<br>
+  • Обжаловать действия или бездействие Оператора в уполномоченный орган по защите прав субъектов персональных данных или в судебном порядке.<br>
+  Для реализации своих прав Пользователь направляет письменное заявление на адрес электронной почты: <a href="mailto:subtextschool@gmail.com">subtextschool@gmail.com</a></p>
+  
+  <p><strong>9. Порядок отзыва согласия на обработку персональных данных</strong><br>
+  Пользователь может отозвать свое согласие на обработку персональных данных в любое время, направив Оператору письменное уведомление на адрес электронной почты: <a href="mailto:subtextschool@gmail.com">subtextschool@gmail.com</a><br>
+  После получения отзыва Оператор прекращает обработку персональных данных Пользователя и уничтожает их в срок не более 30 дней с даты получения отзыва, если иное не предусмотрено законодательством.</p>
+  
+  <p><strong>10. Меры по обеспечению безопасности персональных данных</strong><br>
+  Оператор принимает необходимые и достаточные организационные и технические меры для защиты персональных данных от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения, а также от иных неправомерных действий с ними третьих лиц.<br>
+  Оператор осуществляет хранение персональных данных в форме, позволяющей определить субъекта персональных данных, не дольше, чем этого требуют цели обработки персональных данных, если срок хранения персональных данных не установлен законодательством.</p>
+  
+  <p><strong>11. Трансграничная передача персональных данных</strong><br>
+  Трансграничная передача персональных данных на территории иностранных государств может осуществляться только при наличии письменного согласия субъекта персональных данных, за исключением случаев, предусмотренных законодательством Российской Федерации.</p>
+  
+  <p><strong>12. Заключительные положения</strong><br>
+  Настоящее Согласие действует бессрочно до момента его отзыва Пользователем.<br>
+  Оператор вправе вносить изменения в настоящее Согласие, уведомив об этом Пользователя путем размещения новой редакции на сайте школы.<br>
+  Все предложения или вопросы по поводу настоящего Согласия следует направлять на адрес электронной почты: <a href="mailto:subtextschool@gmail.com">subtextschool@gmail.com</a></p>
+  
+  <p style="margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-radius: 4px; font-size: 13px;">
+  <em>Нажимая кнопку «Отправить заявку» и устанавливая отметку в чекбоксе согласия, Вы подтверждаете, что ознакомились с настоящим Согласием, понимаете его условия и даете согласие на обработку Ваших персональных данных на указанных выше условиях.</em>
+  </p>
+</div>
+    </div>
+  </div>
+</div>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('consentCheck');
+    const submitBtn = document.getElementById('submitBtn');
+    const openBtn = document.getElementById('openConsentBtn');
+    const modal = document.getElementById('consentModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const form = document.querySelector('form'); // или укажите точный id: document.getElementById('ВАШ_ID_ФОРМЫ')
+
+    // Активация кнопки при установке галочки
+    checkbox.addEventListener('change', function() {
+      submitBtn.disabled = !this.checked;
+    });
+
+    // Открытие модального окна
+    openBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      modal.style.display = 'flex';
+    });
+
+    // Закрытие по крестику
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+
+    // Закрытие по клику на затемнённый фон
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape" && modal.style.display === "flex") {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script>
+    
+</body>
+</html>
