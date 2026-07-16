@@ -445,7 +445,7 @@
 
 
       
-        /* === ПРЕМИАЛЬНАЯ ДОРАБОТКА ДИЗАЙНА === */
+         /* === ПРЕМИАЛЬНАЯ ДОРАБОТКА ДИЗАЙНА === */
         body {
             background:
                 radial-gradient(circle at 8% 4%, rgba(96, 165, 250, 0.20), transparent 26%),
@@ -734,6 +734,36 @@
             .price-card { padding: 32px 18px 24px; }
             .price-card::after { right: 14px; width: 38px; height: 38px; }
             .price-val { width: 100%; min-width: 0; }
+        }
+
+
+        /* === УТОЧНЕНИЕ: ЖЁЛТЫМ СВЕТИТСЯ ТОЛЬКО РАМКА ФОРМЫ === */
+        .apply {
+            background: linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
+        }
+        .form-container {
+            overflow: visible;
+            border: 2px solid rgba(250, 204, 21, 0.92);
+            box-shadow:
+                0 0 0 1px rgba(250, 204, 21, 0.28),
+                0 0 18px rgba(250, 204, 21, 0.60),
+                0 0 42px rgba(250, 204, 21, 0.34),
+                0 22px 54px rgba(15, 23, 42, 0.10);
+        }
+        .form-container::before {
+            display: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        .submit-btn {
+            box-shadow: 0 16px 30px rgba(37, 99, 235, 0.24);
+        }
+        .submit-btn:hover:not(:disabled) {
+            box-shadow: 0 20px 36px rgba(37, 99, 235, 0.30);
         }
     </style>
     <!-- EmailJS SDK -->
