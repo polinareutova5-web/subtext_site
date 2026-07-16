@@ -66,7 +66,8 @@
             z-index: 100;
         }
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
-        .logo { font-size: 24px; font-weight: 800; color: #2563eb; }
+        .logo { display: inline-flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 800; color: #2563eb; }
+        .logo img { width: 42px; height: 42px; border-radius: 12px; object-fit: cover; box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18); }
         .nav-links { display: flex; gap: 25px; }
         .nav-links a { font-weight: 500; color: #374151; }
         .nav-links a:hover { color: #2563eb; }
@@ -92,39 +93,93 @@
         .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
 
         /* === ПРЕИМУЩЕСТВА === */
-        .features { background: #fff; }
+        .features {
+            background:
+                radial-gradient(circle at 12% 18%, rgba(147, 197, 253, 0.34), transparent 26%),
+                linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
+        }
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 25px;
         }
         .feature-card {
-            background: #f9fafb;
-            padding: 25px;
-            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.86);
+            padding: 30px 25px 28px;
+            border-radius: 22px;
             text-align: center;
-            border: 1px solid #e5e7eb;
-            transition: 0.25s;
+             border: 1px solid rgba(96, 165, 250, 0.28);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            box-shadow: 0 16px 34px rgba(15, 23, 42, 0.07);
+            backdrop-filter: blur(10px);
         }
-        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .feature-icon { font-size: 2.2rem; margin-bottom: 15px; }
-        .feature-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: #111827; }
-        .feature-card p { color: #4b5563; font-size: 0.95rem; }
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto;
+            height: 5px;
+            background: linear-gradient(90deg, #bfdbfe, #60a5fa, #2563eb);
+        }
+        .feature-card::after {
+            content: "";
+            position: absolute;
+            right: -36px;
+            bottom: -36px;
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            background: rgba(219, 234, 254, 0.62);
+            z-index: 0;
+        }
+        .feature-card:hover { transform: translateY(-7px); border-color: rgba(37, 99, 235, 0.5); box-shadow: 0 24px 48px rgba(37, 99, 235, 0.14); }
+        .feature-card > * { position: relative; z-index: 1; }
+        .feature-icon {
+            width: 66px;
+            height: 66px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 18px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #dbeafe, #ffffff);
+            color: #2563eb;
+            font-size: 2.1rem;
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.14);
+        }
+        .feature-card h3 { font-size: 1.18rem; margin-bottom: 10px; color: #0f172a; }
+        .feature-card p { color: #475569; font-size: 0.96rem; }
 
         /* === ПРЕПОДАВАТЕЛИ === */
-        .teachers { background: #f3f4f6; }
+        .teachers {
+            background:
+                radial-gradient(circle at 86% 8%, rgba(96, 165, 250, 0.28), transparent 28%),
+                linear-gradient(180deg, #f8fafc 0%, #eaf3ff 100%);
+        }
         .teachers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         .teacher-card {
+             position: relative;
             background: #fff;
-            border-radius: 12px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            box-shadow: 0 18px 38px rgba(15, 23, 42, 0.1);
+            border: 1px solid rgba(96, 165, 250, 0.22);
             display: flex;
             flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .teacher-card:hover { transform: translateY(-7px); border-color: rgba(37, 99, 235, 0.45); box-shadow: 0 28px 56px rgba(37, 99, 235, 0.16); }
+        .teacher-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(37, 99, 235, 0.08), transparent 36%);
+            pointer-events: none;
+            z-index: 1;
         }
                         .teacher-img {
             width: 100%;
@@ -132,12 +187,17 @@
             object-fit: cover;          /* Фото заполняет блок, края аккуратно обрезаются */
             object-position: center 20%; /* Фокус смещён на 20% от верха — лица остаются в кадре */
             background-color: #f8fafc;  /* Нейтральный фон, если фото вдруг загрузится с задержкой */
+              border-bottom: 5px solid #dbeafe;
+            transition: transform 0.35s ease;
+        }
+        .teacher-card:hover .teacher-img { transform: scale(1.035); }
         }
     
-        .teacher-info { padding: 20px; flex-grow: 1; }
-        .teacher-info h3 { margin-bottom: 4px; font-size: 1.25rem; color: #111827; }
-        .teacher-subject { color: #2563eb; font-weight: 600; display: block; margin-bottom: 10px; font-size: 0.95rem; }
-        .teacher-info p { color: #4b5563; font-size: 0.95rem; }
+         .teacher-info { position: relative; z-index: 2; padding: 24px 22px 26px; flex-grow: 1; background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%); }
+        .teacher-info h3 { margin-bottom: 8px; font-size: 1.25rem; color: #0f172a; line-height: 1.25; }
+        .teacher-subject { width: fit-content; color: #1d4ed8; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 999px; font-weight: 700; display: block; margin-bottom: 14px; padding: 6px 12px; font-size: 0.92rem; }
+        .teacher-info p { color: #475569; font-size: 0.95rem; }
+
 
         /* === ЦЕНЫ (ВЫРОВНЕНО) === */
         .pricing { background: #fff; }
@@ -147,10 +207,12 @@
             gap: 30px;
         }
         .price-card {
-                position: relative;
+            position: relative;
             overflow: hidden;
             background: linear-gradient(145deg, #ffffff 0%, #f8fbff 58%, #eef6ff 100%);
             border: 1px solid rgba(37, 99, 235, 0.14);
+            border-radius: 22px;
+            padding: 34px 26px 28px;
             border-radius: 22px;
             padding: 34px 26px 28px;
             display: flex;
@@ -158,7 +220,7 @@
             text-align: center;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             height: 100%;
-             box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
         }
         .price-card::before {
             content: "";
@@ -395,7 +457,7 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">Subtext</a>
+                 <a href="#" class="logo"><img src="https://i.imgur.com/raOg4x8.jpeg" alt="Логотип Subtext">Subtext</a>
                 <div class="nav-links">
                     <a href="#about">О платформе</a>
                     <a href="#teachers">Преподаватели</a>
