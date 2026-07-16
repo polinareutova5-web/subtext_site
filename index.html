@@ -110,7 +110,7 @@
             padding: 30px 25px 28px;
             border-radius: 22px;
             text-align: center;
-             border: 1px solid rgba(96, 165, 250, 0.28);
+            border: 1px solid rgba(96, 165, 250, 0.28);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             box-shadow: 0 16px 34px rgba(15, 23, 42, 0.07);
             backdrop-filter: blur(10px);
@@ -162,7 +162,7 @@
             gap: 30px;
         }
         .teacher-card {
-             position: relative;
+            position: relative;
             background: #fff;
             border-radius: 24px;
             overflow: hidden;
@@ -442,6 +442,159 @@
 }
 .close-modal:hover { color: #333; }
 .modal-text { font-size: 14px; line-height: 1.6; color: #333; }
+
+/* === ПРЕМИАЛЬНАЯ ДОРАБОТКА ДИЗАЙНА === */
+        body {
+            background:
+                radial-gradient(circle at 8% 4%, rgba(96, 165, 250, 0.20), transparent 26%),
+                radial-gradient(circle at 94% 0%, rgba(37, 99, 235, 0.14), transparent 28%),
+                linear-gradient(180deg, #f8fbff 0%, #eef6ff 48%, #f8fafc 100%);
+        }
+        section { position: relative; overflow: hidden; }
+        h2 {
+            font-size: clamp(2rem, 3.2vw, 3rem);
+            letter-spacing: -0.04em;
+            background: linear-gradient(90deg, #0f172a, #1d4ed8 58%, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-desc { color: #52637a; line-height: 1.75; }
+        .container { position: relative; z-index: 1; }
+        header {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(191, 219, 254, 0.8);
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.07);
+        }
+        .nav-links a {
+            position: relative;
+            padding: 8px 0;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #60a5fa, #2563eb);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.22s ease;
+        }
+        .nav-links a:hover::after { transform: scaleX(1); }
+        .hero {
+            padding: 110px 0 90px;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.30), transparent 30%),
+                linear-gradient(135deg, #eff6ff 0%, #ffffff 45%, #dbeafe 100%);
+        }
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            filter: blur(2px);
+            opacity: 0.72;
+        }
+        .hero::before { width: 220px; height: 220px; left: -76px; top: 62px; background: rgba(147, 197, 253, 0.42); }
+        .hero::after { width: 170px; height: 170px; right: -52px; bottom: 48px; background: rgba(37, 99, 235, 0.18); }
+        .hero h1 {
+            max-width: 820px;
+            margin: 0 auto 20px;
+            font-size: clamp(2.4rem, 5vw, 4.7rem);
+            letter-spacing: -0.06em;
+            background: linear-gradient(100deg, #0f172a 0%, #1d4ed8 58%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero p { color: #475569; line-height: 1.85; }
+        .badge {
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            box-shadow: 0 12px 26px rgba(37, 99, 235, 0.12);
+        }
+        .btn {
+            border-radius: 999px;
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            box-shadow: 0 16px 30px rgba(37, 99, 235, 0.24);
+        }
+        .btn:hover { background: linear-gradient(135deg, #1d4ed8, #0284c7); box-shadow: 0 20px 36px rgba(37, 99, 235, 0.30); }
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.75);
+            color: #1d4ed8;
+            border: 1px solid rgba(37, 99, 235, 0.28);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+        }
+        .btn-outline:hover { background: #2563eb; color: #fff; }
+        .features, .teachers, .pricing, .apply {
+            border-top: 1px solid rgba(191, 219, 254, 0.56);
+        }
+        .features-grid { grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
+        .feature-card { min-height: 290px; }
+        .teachers-grid {
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            align-items: stretch;
+        }
+        .teacher-card {
+            display: grid;
+            grid-template-rows: 290px 1fr;
+            min-height: 100%;
+        }
+        .teacher-img { height: 290px; }
+        .teacher-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-height: 0;
+        }
+        .teacher-info h3 { font-size: 1.22rem; }
+        .teacher-info p {
+            margin-top: 2px;
+            color: #334155;
+            font-size: 0.98rem;
+            line-height: 1.75;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+        .pricing {
+            background:
+                radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.16), transparent 28%),
+                #ffffff;
+        }
+        .pricing-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .form-container {
+            border: 1px solid rgba(96, 165, 250, 0.24);
+            box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+        }
+        .form-group input, .form-group select, .form-group textarea { background: #f8fbff; }
+        footer { background: linear-gradient(135deg, #0f172a, #172554 60%, #0f172a); }
+
+        @media (min-width: 980px) {
+            .teacher-card {
+                grid-template-columns: 42% 1fr;
+                grid-template-rows: auto;
+            }
+            .teacher-img {
+                height: 100%;
+                min-height: 420px;
+                border-bottom: none;
+                border-right: 5px solid #dbeafe;
+            }
+            .teacher-info { padding: 30px 28px; }
+        }
+        @media (max-width: 768px) {
+            .hero { padding: 82px 0 64px; }
+            .teachers-grid { grid-template-columns: 1fr; }
+            .teacher-card { grid-template-rows: auto 1fr; }
+            .teacher-img { height: 300px; }
+            .feature-card { min-height: auto; }
+        }
+
+        
     </style>
     <!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
