@@ -788,6 +788,88 @@
         @media (max-width: 768px) {
             .hero-video-bg { opacity: 0.24; }
         }
+
+
+        /* === ОБНОВЛЕНИЯ ПО ЗАДАЧЕ: кабинет, преимущества, цены, синяя форма === */
+        .account-link {
+            padding: 9px 16px !important;
+            border-radius: 999px;
+            color: #fff !important;
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24);
+        }
+        .account-link::after { display: none; }
+        .account-link:hover { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(37, 99, 235, 0.30); }
+        .features {
+            background:
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.18), transparent 25%),
+                radial-gradient(circle at 90% 18%, rgba(37, 99, 235, 0.16), transparent 28%),
+                linear-gradient(180deg, #f8fbff 0%, #eef7ff 100%);
+        }
+        .feature-card {
+            text-align: left;
+            min-height: 0;
+            padding: 28px;
+            border-radius: 26px;
+        }
+        .feature-icon {
+            margin: 0 0 20px;
+            width: 74px;
+            height: 74px;
+            border-radius: 24px;
+            font-size: 0;
+        }
+        .feature-icon svg { width: 38px; height: 38px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .feature-card h3 { font-size: 1.28rem; letter-spacing: -0.02em; }
+        .feature-card p { line-height: 1.75; }
+        .teacher-info { font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        .teacher-info h3 { letter-spacing: -0.025em; }
+        .teacher-info p { text-align: justify; text-justify: inter-word; hyphens: auto; }
+        .price-card { text-align: left; padding-top: 48px; }
+        .price-card.featured {
+            border: 2px solid rgba(37, 99, 235, 0.56);
+            box-shadow: 0 28px 60px rgba(37, 99, 235, 0.18);
+            transform: translateY(-4px);
+        }
+        .price-badge {
+            position: absolute;
+            top: 14px;
+            left: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            color: #1d4ed8;
+            background: #dbeafe;
+            border: 1px solid #93c5fd;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .price-card h3 { margin: 0 46px 14px 0; }
+        .price-list li { align-items: flex-start; text-align: left; gap: 16px; }
+        .price-val { margin-left: 0; color: #1d4ed8; background: #eff6ff; font-weight: 900; }
+        .apply {
+            background:
+                radial-gradient(circle at 50% 18%, rgba(59, 130, 246, 0.18), transparent 28%),
+                linear-gradient(180deg, #eff6ff 0%, #f8fafc 100%);
+        }
+        .form-container {
+            border: 2px solid rgba(37, 99, 235, 0.85);
+            box-shadow:
+                0 0 0 1px rgba(37, 99, 235, 0.18),
+                0 0 22px rgba(37, 99, 235, 0.42),
+                0 0 52px rgba(14, 165, 233, 0.26),
+                0 22px 54px rgba(15, 23, 42, 0.10);
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+            .nav-links a:not(.account-link) { display: none; }
+            nav { gap: 14px; }
+        }
+
     </style>
     <!-- EmailJS SDK -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -796,6 +878,26 @@
       emailjs.init("N_YiW0qI6ywlOE0D2");
    })();
 </script>
+
+<!-- Yandex.Metrika counter: replace 00000000 with your counter ID -->
+<script type="text/javascript">
+   const YA_METRIKA_ID = 00000000;
+   if (YA_METRIKA_ID) {
+       (function(m,e,t,r,i,k,a){
+           m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+           m[i].l=1*new Date();
+           k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+       })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       ym(YA_METRIKA_ID, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+   }
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/00000000" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 </head>
 <body>
 
@@ -809,6 +911,7 @@
                     <a href="#teachers">Преподаватели</a>
                     <a href="#apply">Записаться</a>
                     <a href="#price">Цены</a>
+                    <a href="https://subtext-site.online" class="account-link" target="_blank" rel="noopener">Личный кабинет</a>
                 </div>
             </nav>
         </div>
@@ -832,25 +935,25 @@
     <section id="about" class="features">
         <div class="container">
             <h2>Почему выбирают нас</h2>
-            <p class="section-desc">Мы создали идеальную среду для обучения, где каждый ученик получает внимание и поддержку.</p>
+            <p class="section-desc">Не перегружаем обещаниями — показываем понятный маршрут обучения, живой контакт с преподавателем и поддержку до результата.</p>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">📹</div>
+                    <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"/><path d="m17 10 5-3v10l-5-3"/><path d="M7 10h5M7 14h3"/></svg></div>
                     <h3>Живые уроки на нашей платформе</h3>
                     <p>Интерактивные занятия в реальном времени с преподавателем на удобной собственной платформе с геймификацией и бонусами за активность</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">👤</div>
+                    <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M17.5 6.5 20 4m0 0v3m0-3h-3"/></svg></div>
                     <h3>Индивидуально или в мини-группы</h3>
                     <p>Индивидуальные занятия или мини группы до 3 человек. Преподаватель уделяет внимание каждому ученику на каждом уроке.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0-9-9 9 9 0 0 0 9 9Z"/><path d="M12 17a5 5 0 1 0-5-5 5 5 0 0 0 5 5Z"/><path d="M12 13.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5Z"/></svg></div>
                     <h3>Гарантия результата</h3>
                     <p>Если ученик посещает все занятия и делает домашку — наши преподаватели гарантируют повышение успеваемости.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">👶</div>
+                    <div class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V8l8-4 8 4v11"/><path d="M8 19v-7h8v7"/><path d="M9 16h6"/><path d="M12 12v7"/></svg></div>
                     <h3>Для всех возрастов</h3>
                     <p>Программы обучения для детей, подростков и взрослых — под любые цели и уровень подготовки</p>
                 </div>
@@ -928,7 +1031,8 @@
                     </ul>
                     <a href="#apply" class="btn">Записаться</a>
                 </div>
-                <div class="price-card">
+                <div class="price-card featured">
+                    <span class="price-badge">⭐ Популярно</span>
                     <h3>Стандартный пакет</h3>
                         <ul class="price-list">
                         <li><span>8 индивидуальных занятий по 60 мин (650 р за урок) </span> <span class="price-val">5200 ₽</span></li>
@@ -956,7 +1060,8 @@
                     </ul>
                     <a href="#apply" class="btn">Записаться</a>
                 </div>
-                <div class="price-card">
+                <div class="price-card featured">
+                     <span class="price-badge">⭐ Популярно</span>
                      <h3>Стандартный пакет (подготовка к ЕГЭ)</h3>
                         <ul class="price-list">
                         <li><span>8 индивидуальных занятий по 60 мин (подготовка к ЕГЭ) </span> <span class="price-val">6000 ₽</span></li>
@@ -977,7 +1082,8 @@
                     </ul>
                     <a href="#apply" class="btn">Записаться</a>
             </div>
-                      <div class="price-card">
+                      <div class="price-card featured">
+                      <span class="price-badge">💙 Выгодно</span>
                       <h3>Групповые занятия </h3>
                       <ul class="price-list">
                         <li><span>Пакет из 8 групповых занятий (по 450 р) </span> <span class="price-val">3200 ₽</span></li>
