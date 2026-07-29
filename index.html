@@ -1022,55 +1022,69 @@
         .hero .btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 22px 44px rgba(37, 99, 235, 0.42), 0 0 28px rgba(14, 165, 233, 0.26); }
         .platform-showcase {
             position: relative;
-            min-height: 540px;
+            min-height: 600px;
             animation: laptopSlideIn 0.86s cubic-bezier(.2,.8,.2,1) 0.18s both;
         }
         .platform-window {
             position: absolute;
-            inset: 74px 20px auto 0;
-            border-radius: 28px;
+            inset: 58px 20px auto 0;
+            border-radius: 34px;
             overflow: hidden;
-            background: rgba(255,255,255,0.82);
+            padding: 18px 16px 24px;
+            background: linear-gradient(145deg, #0f172a, #1e3a8a 58%, #0ea5e9);
             border: 1px solid rgba(255,255,255,0.86);
-            box-shadow: 0 34px 82px rgba(15, 23, 42, 0.20), 0 18px 40px rgba(37,99,235,0.16);
+            box-shadow: 0 34px 82px rgba(15, 23, 42, 0.24), 0 18px 40px rgba(37,99,235,0.18);
             backdrop-filter: blur(18px);
+        }
+        .platform-window::before {
+            content: "";
+            display: block;
+            width: 54px;
+            height: 6px;
+            margin: 0 auto 12px;
+            border-radius: 999px;
+            background: rgba(226, 232, 240, 0.76);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.28);
         }
         .platform-window::after {
             content: "";
             display: block;
-            height: 18px;
-            margin: 0 42px 18px;
-            border-radius: 0 0 24px 24px;
-            background: linear-gradient(90deg, #1e3a8a, #60a5fa 50%, #0f172a);
-            box-shadow: 0 16px 26px rgba(15,23,42,.25);
+            width: 86px;
+            height: 5px;
+            margin: 14px auto 0;
+            border-radius: 999px;
+            background: rgba(226, 232, 240, 0.76);
+            box-shadow: 0 8px 18px rgba(15,23,42,.22);
         }
-        .browser-bar { height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 18px; background: linear-gradient(180deg, rgba(248,251,255,.96), rgba(219,234,254,.76)); border-bottom: 1px solid rgba(191,219,254,.8); }
-        .browser-bar span { width: 10px; height: 10px; border-radius: 50%; background: #93c5fd; }
+        .browser-bar { height: 32px; display: flex; align-items: center; gap: 7px; padding: 0 14px; background: linear-gradient(180deg, rgba(248,251,255,.96), rgba(219,234,254,.76)); border-radius: 18px 18px 0 0; border-bottom: 1px solid rgba(191,219,254,.8); }
+        .browser-bar span { width: 8px; height: 8px; border-radius: 50%; background: #93c5fd; }
         .browser-bar span:first-child { background: #38bdf8; }
         .browser-bar span:nth-child(2) { background: #60a5fa; }
-        .browser-bar em { margin-left: 10px; color: #64748b; font-style: normal; font-size: .82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .platform-shot-link { display: block; background: #fff; }
+        .browser-bar em { margin-left: 8px; color: #64748b; font-style: normal; font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .platform-shot-link { display: block; overflow: hidden; border-radius: 0 0 18px 18px; background: #fff; box-shadow: 0 0 0 1px rgba(219,234,254,.82); }
         .platform-shot { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top center; }
-        .progress-card,
-        .chat-bubble {
+        .progress-card {
             position: absolute;
             z-index: 3;
             animation: decorAppear .7s ease .72s both, gentleFloat 4.8s ease-in-out 1.4s infinite;
         }
-        .progress-card { right: -8px; top: 178px; width: 188px; display: grid; grid-template-columns: 42px 1fr; gap: 12px; padding: 16px; border-radius: 22px; background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.78); box-shadow: 0 22px 44px rgba(15,23,42,.14); backdrop-filter: blur(18px); }
+        .progress-card { right: -128px; top: 170px; width: 188px; display: grid; grid-template-columns: 42px 1fr; gap: 12px; padding: 16px; border-radius: 22px; background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.78); box-shadow: 0 22px 44px rgba(15,23,42,.14); backdrop-filter: blur(18px); }
         .progress-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 15px; color: #2563eb; background: rgba(219,234,254,.86); }
-        .progress-icon svg, .chat-bubble svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .progress-icon svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
         .progress-card strong { display:block; color:#0f172a; font-size:.92rem; line-height:1.2; }
         .progress-card span { color:#64748b; font-size:.78rem; }
         .progress-track { height: 7px; margin-top: 8px; border-radius: 999px; background: #dbeafe; overflow: hidden; }
         .progress-track i { display:block; width:74%; height:100%; border-radius:inherit; background: linear-gradient(90deg,#2563eb,#38bdf8); }
-        .chat-bubble { top: 38px; left: 92px; width: 58px; height: 58px; display:grid; place-items:center; border-radius: 20px 20px 20px 8px; color: #fff; background: linear-gradient(135deg, #2563eb, #38bdf8); box-shadow: 0 18px 34px rgba(37,99,235,.28); }
-        .books-stack { position:absolute; left: 18px; bottom: 30px; width: 108px; height: 70px; z-index:3; }
-        .books-stack span { position:absolute; left:0; right:0; height:18px; border-radius: 6px; background: linear-gradient(90deg,#1d4ed8,#7dd3fc); box-shadow: 0 8px 16px rgba(37,99,235,.16); }
-        .books-stack span:nth-child(1){ bottom:0; transform: rotate(-4deg); } .books-stack span:nth-child(2){ bottom:20px; left:12px; background:linear-gradient(90deg,#0ea5e9,#bfdbfe); } .books-stack span:nth-child(3){ bottom:40px; left:4px; right:14px; background:linear-gradient(90deg,#1e40af,#60a5fa); }
-        .grad-cap { position:absolute; right: 28px; bottom: 20px; width: 104px; height: 72px; z-index:3; }
+        .books-stack { position:absolute; left: 14px; bottom: -20px; width: 148px; height: 104px; z-index:3; }
+        .books-stack span { position:absolute; height:26px; border-radius: 4px 11px 11px 4px; border: 1px solid rgba(15,23,42,.08); box-shadow: 0 12px 20px rgba(37,99,235,.18); overflow:hidden; }
+        .books-stack span::before { content:""; position:absolute; left:0; top:0; bottom:0; width:28px; background:rgba(15,23,42,.18); border-right: 3px solid rgba(255,255,255,.55); box-shadow: inset -5px 0 0 rgba(255,255,255,.12); }
+        .books-stack span::after { content:""; position:absolute; right:0; top:4px; bottom:4px; width:54px; border-radius: 7px 9px 9px 7px; background: repeating-linear-gradient(180deg, #f8fbff 0 3px, #dbeafe 3px 5px); border-left: 2px solid rgba(255,255,255,.78); }
+        .books-stack span:nth-child(1){ left:0; right:4px; bottom:0; transform: rotate(-3deg); background: linear-gradient(90deg,#1d4ed8 0 28px,#38bdf8 28px 100%); }
+        .books-stack span:nth-child(2){ left:18px; right:0; bottom:29px; transform: rotate(1.5deg); background:linear-gradient(90deg,#0ea5e9 0 28px,#bfdbfe 28px 100%); }
+        .books-stack span:nth-child(3){ left:7px; right:22px; bottom:58px; transform: rotate(-2deg); background:linear-gradient(90deg,#1e40af 0 28px,#60a5fa 28px 100%); }
+        .grad-cap { position:absolute; right: 24px; bottom: -18px; width: 104px; height: 72px; z-index:3; }
         .grad-cap::before { content:""; position:absolute; left:8px; top:18px; width:84px; height:34px; background:linear-gradient(135deg,#1e40af,#38bdf8); clip-path: polygon(50% 0,100% 42%,50% 84%,0 42%); filter: drop-shadow(0 12px 18px rgba(37,99,235,.22)); }
-        .grad-cap::after { content:""; position:absolute; left:35px; top:42px; width:36px; height:15px; border-radius:0 0 14px 14px; background:#1d4ed8; }
+        .grad-cap::after { content:""; position:absolute; left:35px; top:42px; width:36px; height:15px; border-radius:0 0 14px 14px; background:#1d4ed8; box-shadow: inset 0 -3px 0 rgba(15,23,42,.12); }
         .grad-cap span { position:absolute; right:4px; top:42px; width:2px; height:26px; background:#0ea5e9; }
         .grad-cap span::after { content:""; position:absolute; bottom:-6px; left:-5px; width:12px; height:12px; border-radius:50%; background:#38bdf8; }
         .light-orb { position:absolute; border-radius:50%; filter: blur(22px); opacity:.52; pointer-events:none; }
@@ -1087,8 +1101,7 @@
             .hero-copy { transform: none; max-width: 100%; }
             .platform-showcase { min-height: 440px; }
             .platform-window { inset: 48px 0 auto 0; }
-            .progress-card { right: 10px; top: 118px; transform-origin: top right; scale: .86; }
-            .chat-bubble { top: 18px; left: 34px; scale: .86; }
+            .progress-card { right: -112px; top: 136px; transform-origin: top right; scale: .86; }
             .books-stack, .grad-cap { scale: .78; transform-origin: bottom; }
         }
         @media (max-width: 768px) {
@@ -1111,9 +1124,8 @@
         }
         @media (max-width: 520px) {
             .platform-showcase { min-height: 315px; }
-            .progress-card { top: 86px; right: -6px; scale: .68; }
-            .chat-bubble { top: 12px; left: 18px; scale: .72; }
-            .platform-window::after { margin: 0 28px 12px; height: 12px; }
+            .progress-card { display: none; }
+            .platform-window::after { width: 68px; height: 4px; margin: 10px auto 0; }
             .star, .dash-line { display:none; }
             .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .feature-card h3 { font-size: 1rem; }
@@ -1184,9 +1196,6 @@
                 <div class="light-orb orb-two"></div>
                 <div class="dash-line dash-one"></div>
                 <div class="dash-line dash-two"></div>
-                <div class="chat-bubble" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3 1.3-5.2A8 8 0 1 1 21 12Z"/></svg>
-                </div>
                 <div class="progress-card">
                     <div class="progress-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-8"/></svg></div>
                     <div>
