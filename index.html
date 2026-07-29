@@ -261,8 +261,9 @@
             padding: 34px 34px 32px;
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 18px;
-            text-align: left;
+            text-align: center;
             background: rgba(255, 255, 255, 0.86);
             border: 1px solid rgba(148, 163, 184, 0.18);
             border-radius: 28px;
@@ -322,13 +323,11 @@
         .price-card h3 {
             min-height: 2.55em;
             margin: 0;
-            padding-right: 74px;
             color: #0f172a;
             font-size: 1.32rem;
             line-height: 1.28;
             letter-spacing: -0.025em;
         }
-        .price-card:not(.featured) h3 { padding-right: 0; }
         .price-desc {
             min-height: 3.2em;
             margin: 0;
@@ -338,7 +337,7 @@
         }
         .price-val {
             display: block;
-            margin: 6px 0 10px;
+            margin: 6px auto 10px;
             color: #1d4ed8;
             font-size: clamp(2.1rem, 3vw, 2.38rem);
             font-weight: 900;
