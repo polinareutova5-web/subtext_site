@@ -1027,7 +1027,7 @@
         }
         .platform-window {
             position: absolute;
-            inset: 74px 20px auto 0;
+            inset: 58px 20px auto 0;
             border-radius: 28px;
             overflow: hidden;
             background: rgba(255,255,255,0.82);
@@ -1057,7 +1057,7 @@
             z-index: 3;
             animation: decorAppear .7s ease .72s both, gentleFloat 4.8s ease-in-out 1.4s infinite;
         }
-        .progress-card { right: -8px; top: 178px; width: 188px; display: grid; grid-template-columns: 42px 1fr; gap: 12px; padding: 16px; border-radius: 22px; background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.78); box-shadow: 0 22px 44px rgba(15,23,42,.14); backdrop-filter: blur(18px); }
+        .progress-card { right: -22px; top: 178px; width: 188px; display: grid; grid-template-columns: 42px 1fr; gap: 12px; padding: 16px; border-radius: 22px; background: rgba(255,255,255,.58); border: 1px solid rgba(255,255,255,.78); box-shadow: 0 22px 44px rgba(15,23,42,.14); backdrop-filter: blur(18px); }
         .progress-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 15px; color: #2563eb; background: rgba(219,234,254,.86); }
         .progress-icon svg, .chat-bubble svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
         .progress-card strong { display:block; color:#0f172a; font-size:.92rem; line-height:1.2; }
@@ -1065,12 +1065,16 @@
         .progress-track { height: 7px; margin-top: 8px; border-radius: 999px; background: #dbeafe; overflow: hidden; }
         .progress-track i { display:block; width:74%; height:100%; border-radius:inherit; background: linear-gradient(90deg,#2563eb,#38bdf8); }
         .chat-bubble { top: 38px; left: 92px; width: 58px; height: 58px; display:grid; place-items:center; border-radius: 20px 20px 20px 8px; color: #fff; background: linear-gradient(135deg, #2563eb, #38bdf8); box-shadow: 0 18px 34px rgba(37,99,235,.28); }
-        .books-stack { position:absolute; left: 18px; bottom: 30px; width: 108px; height: 70px; z-index:3; }
-        .books-stack span { position:absolute; left:0; right:0; height:18px; border-radius: 6px; background: linear-gradient(90deg,#1d4ed8,#7dd3fc); box-shadow: 0 8px 16px rgba(37,99,235,.16); }
-        .books-stack span:nth-child(1){ bottom:0; transform: rotate(-4deg); } .books-stack span:nth-child(2){ bottom:20px; left:12px; background:linear-gradient(90deg,#0ea5e9,#bfdbfe); } .books-stack span:nth-child(3){ bottom:40px; left:4px; right:14px; background:linear-gradient(90deg,#1e40af,#60a5fa); }
-        .grad-cap { position:absolute; right: 28px; bottom: 20px; width: 104px; height: 72px; z-index:3; }
+        .books-stack { position:absolute; left: 22px; bottom: 10px; width: 134px; height: 84px; z-index:3; }
+        .books-stack span { position:absolute; left:0; right:0; height:22px; border-radius: 5px 10px 10px 5px; border: 1px solid rgba(255,255,255,.62); box-shadow: 0 10px 18px rgba(37,99,235,.16); overflow:hidden; }
+        .books-stack span::before { content:""; position:absolute; left:10px; top:3px; bottom:3px; width:7px; border-radius:6px; background:rgba(15,23,42,.16); box-shadow: 8px 0 0 rgba(255,255,255,.18); }
+        .books-stack span::after { content:""; position:absolute; right:8px; top:5px; width:42px; height:3px; border-radius:999px; background:rgba(255,255,255,.72); box-shadow: 0 7px 0 rgba(255,255,255,.52); }
+        .books-stack span:nth-child(1){ bottom:0; transform: rotate(-3deg); background: linear-gradient(90deg,#1d4ed8 0 22%,#dbeafe 22% 28%,#38bdf8 28% 100%); }
+        .books-stack span:nth-child(2){ bottom:24px; left:15px; right:4px; transform: rotate(2deg); background:linear-gradient(90deg,#0ea5e9 0 20%,#eff6ff 20% 27%,#bfdbfe 27% 100%); }
+        .books-stack span:nth-child(3){ bottom:48px; left:5px; right:19px; transform: rotate(-2deg); background:linear-gradient(90deg,#1e40af 0 23%,#dbeafe 23% 30%,#60a5fa 30% 100%); }
+        .grad-cap { position:absolute; right: 28px; bottom: 4px; width: 104px; height: 72px; z-index:3; }
         .grad-cap::before { content:""; position:absolute; left:8px; top:18px; width:84px; height:34px; background:linear-gradient(135deg,#1e40af,#38bdf8); clip-path: polygon(50% 0,100% 42%,50% 84%,0 42%); filter: drop-shadow(0 12px 18px rgba(37,99,235,.22)); }
-        .grad-cap::after { content:""; position:absolute; left:35px; top:42px; width:36px; height:15px; border-radius:0 0 14px 14px; background:#1d4ed8; }
+        .grad-cap::after { content:""; position:absolute; left:35px; top:42px; width:36px; height:15px; border-radius:0 0 14px 14px; background:#1d4ed8; box-shadow: inset 0 -3px 0 rgba(15,23,42,.12); }
         .grad-cap span { position:absolute; right:4px; top:42px; width:2px; height:26px; background:#0ea5e9; }
         .grad-cap span::after { content:""; position:absolute; bottom:-6px; left:-5px; width:12px; height:12px; border-radius:50%; background:#38bdf8; }
         .light-orb { position:absolute; border-radius:50%; filter: blur(22px); opacity:.52; pointer-events:none; }
