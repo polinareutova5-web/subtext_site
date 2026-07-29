@@ -1022,7 +1022,8 @@
         .hero .btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 22px 44px rgba(37, 99, 235, 0.42), 0 0 28px rgba(14, 165, 233, 0.26); }
         .platform-showcase {
             position: relative;
-            min-height: 600px;
+            min-height: 620px;
+            perspective: 1200px;
             animation: laptopSlideIn 0.86s cubic-bezier(.2,.8,.2,1) 0.18s both;
         }
         .platform-window {
@@ -1035,6 +1036,8 @@
             border: 1px solid rgba(255,255,255,0.86);
             box-shadow: 0 34px 82px rgba(15, 23, 42, 0.24), 0 18px 40px rgba(37,99,235,0.18);
             backdrop-filter: blur(18px);
+            transform: rotateY(-5deg) scale(1.05);
+            transform-origin: right center;
         }
         .platform-window::before {
             content: "";
@@ -1099,8 +1102,8 @@
         @media (max-width: 900px) {
             .hero-grid { grid-template-columns: 1fr; gap: 28px; }
             .hero-copy { transform: none; max-width: 100%; }
-            .platform-showcase { min-height: 440px; }
-            .platform-window { inset: 48px 0 auto 0; }
+            .platform-showcase { min-height: 460px; }
+            .platform-window { inset: 48px 0 auto 0; transform: none; }
             .progress-card { right: -112px; top: 136px; transform-origin: top right; scale: .86; }
             .books-stack, .grad-cap { scale: .78; transform-origin: bottom; }
         }
@@ -1114,18 +1117,21 @@
             .nav-toggle:checked ~ .nav-links { display: grid; gap: 4px; }
             .hero { padding: 68px 0 54px; min-height: auto; text-align: left; }
             .hero h1 { font-size: clamp(2.2rem, 11vw, 3.2rem); }
-            .platform-showcase { min-height: 390px; width: 100%; }
-            .platform-window { border-radius: 22px; }
-            .browser-bar em { font-size: .68rem; }
+            .platform-showcase { min-height: 380px; width: 100%; }
+            .platform-window { inset: 40px 0 auto 0; border-radius: 22px; padding: 12px 10px 16px; transform: none; }
+            .platform-window::before { width: 42px; height: 5px; margin-bottom: 9px; }
+            .browser-bar { height: 28px; padding: 0 10px; border-radius: 14px 14px 0 0; }
+            .browser-bar em { font-size: .62rem; }
             .books-stack, .grad-cap { display: none; }
             .dash-line { opacity: .6; }
             .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
             .feature-card { padding: 20px; }
         }
         @media (max-width: 520px) {
-            .platform-showcase { min-height: 315px; }
+            .platform-showcase { min-height: 330px; }
             .progress-card { display: none; }
-            .platform-window::after { width: 68px; height: 4px; margin: 10px auto 0; }
+            .platform-window { top: 34px; padding: 10px 8px 14px; }
+            .platform-window::after { width: 60px; height: 4px; margin: 9px auto 0; }
             .star, .dash-line { display:none; }
             .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .feature-card h3 { font-size: 1rem; }
