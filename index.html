@@ -1159,6 +1159,69 @@
             .footer-grid { gap: 16px; margin-bottom: 18px; }
             .copyright { padding-top: 18px; }
         }
+        /* === ПЕРВЫЙ ЭКРАН: АДАПТАЦИЯ ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ === */
+@media (max-width: 768px) {
+
+    /* Убираем картинку персонажа только на телефоне */
+    .hero-mascot {
+        display: none;
+    }
+
+    /* Первый экран делаем компактнее */
+    .hero {
+        padding: 70px 0 65px;
+        text-align: center;
+    }
+
+    /* Весь контент располагается по центру */
+    .hero-layout {
+        display: block;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 620px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    /* Бейдж по центру */
+    .badge {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Заголовок */
+    .hero h1 {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: clamp(2.1rem, 9vw, 3rem);
+        line-height: 1.12;
+    }
+
+    /* Основной текст */
+    .hero p,
+    .hero-seo-text {
+        max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    /* Предметы по центру */
+    .subject-tags {
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Кнопки по центру */
+    .hero-buttons {
+        justify-content: center;
+        align-items: center;
+    }
+}
 
     </style>
     <!-- EmailJS SDK -->
